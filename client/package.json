@@ -1,0 +1,12 @@
+{
+    "main": "http://dashboard.devel", // 启动页面
+    "name": "Dashboard-All-In-One",
+    "window": {
+        "title": "Dashboard-All-In-One",
+        "toolbar": false, // 工具栏
+        "frame": true, // 框架
+        "width": 960,
+        "height": 640,
+        "resizable": true 
+  }
+}
