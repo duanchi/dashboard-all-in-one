@@ -6,11 +6,13 @@
  * Time: 12:57
  */
 
-namespace CORE;
-
 
 class CONF {
-    public static function set ($_key, $value) {
+    static public function set ($_key, $value) {
+
+    }
+
+    static public function get($_key) {
 
     }
 } 
