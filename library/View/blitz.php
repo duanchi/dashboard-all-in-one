@@ -8,25 +8,29 @@
 
 namespace View;
 
-
-class Blitz implements \Yaf\View_Interface
+class Blitz extends \Blitz implements Api
 {
 
-    private $__instance                     =   NULL;
-    private $__template_file                =   '';
+    private $__template_file        =   '';
+    private $__config               =   [];
+	private $__plugin               =   NULL;
+	private $__request              =   [
+											'module'                =>  NULL,
+											'controller'            =>  NULL,
+											'action'                =>  NULL,
+											'method'                =>  'GET',
+											'params'                =>  NULL,
+											'is_xml_http_request'   =>  FALSE,
+										];
+    private $__custom_function      =   [
+                                            'inc'           =>  TRUE,
+                                            //'strtoupper'    =>  TRUE
+                                        ];
 
-    public function __construct($_template_file, $_settings = NULL) {
-        $this->__instance                   =   new \Blitz();
-        $this->__template_file              =   $_template_file;
-    }
-
-    /**
-     * Return the template engine object
-     *
-     * @return Blitz
-     */
-    public function getEngine() {
-        return $this->__instance;
+    function __construct($_template_file = NULL, $_conf = []) {
+        parent::__construct($_template_file);
+	    $this->__plugin             =   $this->init_plugin($this, $_conf);
+        $this->__config             =   $_conf;
     }
 
     /**
@@ -37,8 +41,7 @@ class Blitz implements \Yaf\View_Interface
      */
     public function setScriptPath($path)
     {
-
-        return ;
+        $this->__template_file      =   $path;
     }
 
     /**
@@ -48,7 +51,7 @@ class Blitz implements \Yaf\View_Interface
      */
     public function getScriptPath()
     {
-        return ;
+        $this->__template_file;
     }
 
     /**
@@ -66,17 +69,17 @@ class Blitz implements \Yaf\View_Interface
      */
     public function assign($spec, $value = null) {
         if (is_array($spec)) {
-            $this->__instance->set($spec);
+            $this->set($spec);
             return;
         }
 
-        $this->__instance->set([$spec=>$value]);
-        //t($spec);
+        $this->set([$spec=>$value]);
     }
 
-    public function __set($property, $value) {
-        $this->assign($property, $value);
-    }
+	public function setRequest($_request) {
+		$this->__request            =   $_request;
+		$this->assign('_REQUEST', $_request);
+	}
 
     /**
      * Clear all assigned variables
@@ -88,22 +91,41 @@ class Blitz implements \Yaf\View_Interface
      * @return void
      */
     public function clearVars() {
-        $this->__instance->clean();
-    }
-
-    /**
-     * Processes a template and returns the output.
-     *
-     * @param string $name The template to process.
-     * @return string The output.
-     */
-    public function render($name, $value = NULL) {
-        $this->__instance->load(file_get_contents($this->__template_file));
-        return $this->__instance->display();
+        $this->clean();
     }
 
     public function display($name, $value = NULL) {
-        return $this->render($name, $value);
+
+	    $_template_file             =   !empty($this->__template_file) ?
+										    $this->__config['path'].
+										    DIRECTORY_SEPARATOR.
+										    $this->__request['controller'].
+										    DIRECTORY_SEPARATOR.
+										    $this->__request['action'].
+										    $this->__config['suffix']
+			                                :
+		                                    $this->__template_file;
+
+        $this->load(file_get_contents($_template_file));
+
+        return parent::display();
+    }
+
+    public function version() {
+        return '0.8.17';
+    }
+
+    /**
+     * Plugins
+     */
+
+	private function init_plugin($_instance, $_conf) {
+		return new Blitz\Plugins($_instance, $_conf);
+	}
+
+    public function __call($_function_name, $_arguments){
+        if (!isset($this->__custom_function[$_function_name])) return FALSE;
+        return $this->__plugin->{'__func_' . $_function_name}($_arguments, count($_arguments));
     }
 
 }

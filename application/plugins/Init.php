@@ -10,7 +10,7 @@ class InitPlugin extends Yaf\Plugin_Abstract {
 	}
 	
 	public function dispatchLoopStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-		$this->__init(
+		/*$this->__init(
 						'\View',
 
 						\Yaf\Registry::get('config')->application->view->path.
@@ -23,7 +23,18 @@ class InitPlugin extends Yaf\Plugin_Abstract {
 						\Yaf\Registry::get('config')->application->view,
 
 						\Yaf\Registry::get('config')->application->view->engine
-					);
+					);*/
+
+		\CORE\INSTANCE::set(new \View(
+			\Yaf\Registry::get('config')->application->view->path.
+			DIRECTORY_SEPARATOR.
+			$request->controller.
+			DIRECTORY_SEPARATOR.
+			$request->action.
+			\Yaf\Registry::get('config')->application->view->suffix,
+
+			NULL
+		));
 	}
 	
 	public function preDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {

@@ -19,11 +19,41 @@ class ViewPlugin extends Yaf\Plugin_Abstract {
 	}
 	
 	public function dispatchLoopStartup(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-		Yaf\Dispatcher::getInstance()->setView(\View::instance());
+        /*Yaf\Dispatcher::getInstance()->setView(new \View(
+                                                            \Yaf\Registry::get('config')->application->view->path.
+                                                            DIRECTORY_SEPARATOR.
+                                                            $request->controller.
+                                                            DIRECTORY_SEPARATOR.
+                                                            $request->action.
+                                                            \Yaf\Registry::get('config')->application->view->suffix,
+
+		                                                    NULL,
+
+													        [
+														        '_REQUEST'  =>  [
+															        'module'                =>  $request->module,
+															        'controller'            =>  $request->controller,
+															        'action'                =>  $request->action,
+															        'method'                =>  $request->method,
+															        'params'                =>  $request->getParams(),
+															        'is_xml_http_request'   =>  $request->isXmlHttpRequest(),
+														        ]
+
+													        ]
+                                                        )
+        );*/
+		Yaf\Dispatcher::getInstance()->setView(\CORE\INSTANCE::get('View'));
+		\CORE\INSTANCE::get('View')->setRequest([
+													'module'                =>  $request->module,
+													'controller'            =>  $request->controller,
+													'action'                =>  $request->action,
+													'method'                =>  $request->method,
+													'params'                =>  $request->getParams(),
+													'is_xml_http_request'   =>  $request->isXmlHttpRequest(),
+												]);
 	}
 	
 	public function preDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {
-		
 	}
 	
 	public function postDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {

@@ -33,8 +33,8 @@ class TestController extends Yaf\Controller_Abstract {
 	}
 
 	public function envAction() {
-		phpinfo();
-
+		t(microtime());
+        t(mk_rand_str(512));
 		return FALSE;
 	}
 
