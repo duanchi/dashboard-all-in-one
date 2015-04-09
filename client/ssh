@@ -1,0 +1,31 @@
+#!/usr/bin/expect -f
+
+#ssh -u devel -p p0qcuwkke -h 10.118.1.2 -o 22
+
+set USER    [lindex $argv 0]
+set PASS    [lindex $argv 1]
+set HOST    [lindex $argv 2]
+set PORT    [lindex $argv 3]
+
+set timeout  -1
+
+spawn ssh ${USER}@${HOST} -p ${PORT}
+
+expect {
+    "*yes/no" {
+        send "yes\r";
+        exp_continue
+    }
+    "*password:" {
+        send "$PASS\r"
+    }
+    "* to host" {
+        send_user "\r\rConnect faild with cannot touch $HOST:$PORT!\r\r"
+        exit 2
+    }
+    "*try again" {
+        send_user "\r\rConnect faild with incorrect password!\r\r"
+        exit 2
+    }
+}
+expect eof

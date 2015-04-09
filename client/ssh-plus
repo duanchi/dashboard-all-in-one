@@ -1,0 +1,81 @@
+#!/bin/bash
+
+flag=${1//./_}
+
+
+# get config
+
+while IFS='= ' read var val
+do
+    if [[ $var == \[*] ]]
+    then
+        section=$(echo $var | sed 's/^\[\(.*\)\]$/\1/')
+    elif [[ $val ]]
+    then
+        if [ -z $section ];then
+            declare "${var}=$val"
+        else
+            declare "host_${section}_${var}=$val"
+        fi
+    fi
+done < /opt/local/etc/auto-ssh/config.ini
+
+#if [-z ${host_{$flag}_host}]; then
+#    echo "No such host config!"
+#    exit
+#fi
+
+
+# auto ssh
+
+HOST=host_${flag}_host
+PASS=host_${flag}_pass
+USER=host_${flag}_user
+PORT=host_${flag}_port
+declare "TMP=auto-ssh-${RANDOM}"
+
+
+echo "Login to ${!HOST} at port ${!PORT} ..."
+
+echo "Using User ${!USER} ..."
+
+echo "Password ******** ..."
+
+
+cat > ~/${TMP} << EOF
+
+set timeout -1
+
+spawn ssh ${!USER}@${!HOST} -p ${!PORT}
+
+expect {
+    "*yes/no" {
+        send "yes\r";
+        exp_continue
+    }
+    "*password:" {
+        send "${!PASS}\r"
+        exp_continue
+    }
+    "* to host" {
+        send_user "\r\rConnect faild with cannot touch $HOST:$PORT!\r\r"
+        exit 2
+    }
+    "*try again" {
+        send_user "\r\rConnect faild with incorrect password!\r\r"
+        exit 2
+    }
+}
+interact
+
+EOF
+
+expect -f ${TMP}
+
+rm ~/${TMP}
+
+echo "
+
+
+
+"

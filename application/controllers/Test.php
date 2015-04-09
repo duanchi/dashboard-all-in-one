@@ -33,8 +33,7 @@ class TestController extends Yaf\Controller_Abstract {
 	}
 
 	public function envAction() {
-		t(microtime());
-        t(mk_rand_str(512));
+		t(microtime(true));
 		return FALSE;
 	}
 
@@ -72,7 +71,7 @@ class TestController extends Yaf\Controller_Abstract {
 	}
 
 	public function etcAction() {
-		var_dump(get_config('rpc'));
+		t(\DATA\Json::get('client'));
 		return FALSE;
 	}
 

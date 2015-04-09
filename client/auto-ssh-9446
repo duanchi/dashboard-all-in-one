@@ -1,0 +1,25 @@
+
+set timeout -1
+
+spawn ssh devel@10.118.1.2 -p 22
+
+expect {
+    "*yes/no" {
+        send "yes\r";
+        exp_continue
+    }
+    "*password:" {
+        send "b1WNeWeiMM\r"
+        exp_continue
+    }
+    "* to host" {
+        send_user "\r\rConnect faild with cannot touch host_10_118_1_2_host:host_10_118_1_2_port!\r\r"
+        exit 2
+    }
+    "*try again" {
+        send_user "\r\rConnect faild with incorrect password!\r\r"
+        exit 2
+    }
+}
+interact
+

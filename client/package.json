@@ -1,5 +1,5 @@
 {
-    "main": "http://dashboard.devel", // 启动页面
+    "main": "https://www.zybuluo.com/mdeditor", // 启动页面
     "name": "Dashboard-All-In-One",
     "window": {
         "title": "Dashboard-All-In-One",
