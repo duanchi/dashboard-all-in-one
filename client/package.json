@@ -1,12 +1,20 @@
 {
-    "main": "https://www.zybuluo.com/mdeditor", // 启动页面
-    "name": "Dashboard-All-In-One",
-    "window": {
-        "title": "Dashboard-All-In-One",
-        "toolbar": false, // 工具栏
-        "frame": true, // 框架
-        "width": 960,
-        "height": 640,
-        "resizable": true 
-  }
+    "main":             "index.html?monitor/index&FOO=BAR", // 启动页面
+    "name":             "Dashboard-All-In-One",
+    "version":          "0.1.0",
+    "nodejs":           true,
+    "window":           {
+        "title":            "Dashboard-All-In-One",
+        "toolbar":          false, // 工具栏
+        "frame":            true, // 框架
+        "width":            960,
+        "height":           540,
+        "resizable":        true,
+        "show_in_taskbar":  true
+    },
+    "webkit":           {
+        "plugin":           true
+    },
+    "inject-js-end":    "preload.js",
+    "user-agent":       "Dashboard-All-In-One %ver"
 }
