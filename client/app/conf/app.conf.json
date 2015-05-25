@@ -1,3 +1,4 @@
 {
-    "appkey": "test"
+    "appkey": "test",
+    "node-module": ["net", "url", "querystring"]
 }

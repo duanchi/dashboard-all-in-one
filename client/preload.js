@@ -1,20 +1,19 @@
-var path        =   require('path');
+var path            =   require('path');
 
-var request     =   {
+var request         =   {
     url:        window.location.href,
     method:     'GET',
     version:    '1.1',
     headers:     {
         'host': 'localhost'
     },
-    status:     200,
-    location:   path.dirname(window.location.href.split('?', 1)[0].replace(/file:\/\//, ''))
+    status:     200
 }
 
-//Node            =   require(request.location + '/app/conf/node-module.conf.js');
+var app_location    =   path.dirname(window.location.href.split('?', 1)[0].replace(/file:\/\//, ''));
 
+var App             =   new require(app_location + '/app/app.js')(request, app_location);
 
+App.run();
 
-App             =   require(request.location + '/app/app.js');
-
-App.run(request);
+console.log(App.url);
