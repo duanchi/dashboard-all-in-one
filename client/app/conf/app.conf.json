@@ -1,4 +1,23 @@
 {
-    "appkey": "test",
-    "node-module": ["net", "url", "querystring"]
+    "appkey":   "test",
+    "node-module":  ["net", "url", "querystring", "path"],
+    "application":  {
+        "bootstrap-file":   "bootstrap/bootstrap.js",
+        "plugin-path":      "plugin",
+        "library-path":     "library"
+    },
+    "route":    [
+        {
+            "type":         "regex",
+            "uri":          "(.*)\\\/(.*)\\?(\\d?)\\\/(\\w*)",
+            "module":       "Index",
+            "contoller":    "$1",
+            "action":       "$2",
+            "regex-map":    {
+                "$3":   "uid",
+                "$4":   "method"
+            }
+        }
+        
+    ]
 }
