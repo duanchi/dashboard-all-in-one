@@ -42,6 +42,7 @@ module.exports  =   function (request, location) {
         'data':             ''
     };
 
+    this.bootstrap          =   null;
     
     /* Public Functions */
     
@@ -120,7 +121,7 @@ module.exports  =   function (request, location) {
     this.__init_CONST();
     this.__init_request(request);
     
-    var Bootstrap                   =   require(this.location + '/' + this.conf.application['bootstrap-file']);
+    this.bootstrap                   =   new require(this.location + '/' + this.conf.application['bootstrap-file'])(this);
     
     //var mvc_obj             =   Node.url.parse(request.url).query.split('&', 2);
 
