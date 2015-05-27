@@ -12,12 +12,12 @@ module.exports  =   function (request, location) {
     //app location
     this.location           =   (location == '' ? '.' : location) + '/app';
     
-    this.conf_path          =   this.location + '/conf';
+    this.__conf_path          =   this.location + '/conf';
 
     //app config
-    this.conf               =   require(this.conf_path + '/app.conf.json');
+    this.conf               =   require(this.__conf_path + '/app.conf.json');
     
-    this.CONST              =   require(this.conf_path + '/const.conf.json');
+    this.CONST              =   require(this.__conf_path + '/const.conf.json');
 
     this.Node               =   {};
 
@@ -44,6 +44,9 @@ module.exports  =   function (request, location) {
     
 
     this.bootstrap          =   require(this.location + '/core/bootstrap.core.js');
+    
+    this.dispatcher         =   {};
+    
     
     /* Public Functions */
     
@@ -115,34 +118,11 @@ module.exports  =   function (request, location) {
     this.__init_CONST();
     this.__init_request(request);
     
-    //this.bootstrap                  =   new require(this.location + '/core/bootstrap.core.js')(this);
     
-    console.log(this.location + '/core/bootstrap.core.js');
+    /* Init bootstrap with bootstrap Plugin Hooks */
+    this.bootstrap.init(this, require(this.location + '/' + this.conf.application['bootstrap-file']));
     
-    var bootstrap_plugin            =   require(this.location + '/' + this.conf.application['bootstrap-file']);
     
-    //var mvc_obj             =   Node.url.parse(request.url).query.split('&', 2);
-
-    /* if (mvc_obj[0].search('=') == -1) {
-        this.request.GET    =   Node.querystring.parse(mvc_obj[1]);
-
-        mvc_obj             =   mvc_obj[0].split('/', 3);
-        switch (mvc_obj.length) {
-            case 3: //has m c a
-
-            case 2: //has c a
-            this.request.action     =   mvc_obj.pop();                
-
-            case 1: //has c
-            this.request.controller =   mvc_obj.pop();
-
-            default:
-            if (mvc_obj.length != 0) {
-                this.request.module =   mvc_obj.pop();
-            }
-        }
-
-    }; */
     
     /* Construct Function End */
     

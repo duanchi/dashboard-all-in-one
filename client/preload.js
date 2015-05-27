@@ -17,8 +17,6 @@ var App             =   new require(app_location + '/app/app.js')(request, app_l
 
 //App.bootstrap.run();
 
-for (key in App.bootstrap) {
-    console.log(key);
-}
+console.log(App.dispatcher);
 
 //console.log(JSON.stringify(CONST));

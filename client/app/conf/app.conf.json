@@ -3,7 +3,7 @@
     "node-module":  ["net", "url", "querystring", "path"],
     "application":  {
         "bootstrap-file":   "bootstrap/bootstrap.js",
-        "plugin-path":      "plugin",
+        "plugin-path":      "plugins",
         "library-path":     "library"
     },
     "route":    [
