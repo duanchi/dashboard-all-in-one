@@ -41,21 +41,12 @@ module.exports  =   function (request, location) {
         'POST':             {},
         'data':             ''
     };
+    
 
-    this.bootstrap          =   null;
+    this.bootstrap          =   require(this.location + '/core/bootstrap.core.js');
     
     /* Public Functions */
     
-    /**
-
-    Function App.run(request);
-
-    **/
-    this.run                =   function() {
-        
-        console.log('Running!');
-
-    };
     
     
     
@@ -74,8 +65,11 @@ module.exports  =   function (request, location) {
     };
     
     this.__init_CONST       =   function() {
-        /* Define Global Constants */
+    
+    /* Define Global Constants */
+        
         global.CONST        =   this.CONST;
+        
     };
     
     
@@ -121,7 +115,11 @@ module.exports  =   function (request, location) {
     this.__init_CONST();
     this.__init_request(request);
     
-    this.bootstrap                   =   new require(this.location + '/' + this.conf.application['bootstrap-file'])(this);
+    //this.bootstrap                  =   new require(this.location + '/core/bootstrap.core.js')(this);
+    
+    console.log(this.location + '/core/bootstrap.core.js');
+    
+    var bootstrap_plugin            =   require(this.location + '/' + this.conf.application['bootstrap-file']);
     
     //var mvc_obj             =   Node.url.parse(request.url).query.split('&', 2);
 

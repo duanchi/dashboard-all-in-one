@@ -15,6 +15,10 @@ var app_location    =   path.dirname(window.location.href.split('?', 1)[0].repla
 
 var App             =   new require(app_location + '/app/app.js')(request, app_location, this);
 
-App.run();
+//App.bootstrap.run();
+
+for (key in App.bootstrap) {
+    console.log(key);
+}
 
 //console.log(JSON.stringify(CONST));
