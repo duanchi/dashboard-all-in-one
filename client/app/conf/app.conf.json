@@ -4,12 +4,13 @@
     "application":  {
         "bootstrap-file":   "bootstrap/bootstrap.js",
         "plugin-path":      "plugins",
-        "library-path":     "library"
+        "library-path":     "library",
+        "modules":          ["index", "monitor", "dashboard", "login"]
     },
-    "route":    [
+    "routes":   [
         {
             "type":         "regex",
-            "uri":          "(.*)\\\/(.*)\\?(\\d?)\\\/(\\w*)",
+            "match":        "\/(.*)\/(.*)\\?(\\d+)\/(.*)",
             "module":       "Index",
             "contoller":    "$1",
             "action":       "$2",

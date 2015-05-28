@@ -17,6 +17,11 @@ var App             =   new require(app_location + '/app/app.js')(request, app_l
 
 //App.bootstrap.run();
 
-console.log(App.dispatcher);
+for (key in App.request) {
+    console.log(key + ': ' + App.request[key]);
+}
+//console.log(App.dispatcher);
 
 //console.log(JSON.stringify(CONST));
+
+//console.log(JSON.stringify('/monitor/index?129931/lalalala'.match('\/(.*)\/(.*)\\?(\\d+)\/(.*)')));

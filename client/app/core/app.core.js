@@ -25,6 +25,7 @@ module.exports  =   function (request, location) {
     this.request            =   {
         'version':          CONST.HTTP.VERSION._11,
         'request-uri':      request.url,
+        'routed-uri':       '',
         'scheme':           CONST.NET.SCHEME.HTTP,
         'host':             '',
         'socket':           '',
@@ -90,6 +91,10 @@ module.exports  =   function (request, location) {
         this.request.path           =   Node.path.dirname(url_object.pathname);
         this.request['script-file'] =   Node.path.basename(url_object.pathname);
         
+        this.request.module         =   '';
+        this.request.controller     =   '';
+        this.request.action         =   '';
+        
         if (query_obj[0].search('=') == -1) {
             this.request.route      =   query_obj.shift();
         }
@@ -99,6 +104,7 @@ module.exports  =   function (request, location) {
             this.request.GET        =   Node.querystring.parse(this.request['query-string']);
         }
         
+        this.request['routed-uri']  =   '/' + this.request.route + '?' + this.request['query-string'];
         this.request.method         =   (undefined == CONST.HTTP.METHOD[http_method] ? CONST.HTTP.METHOD.GET : CONST.HTTP.METHOD[http_method]);
         
         if (this.request.method == CONST.HTTP.METHOD.POST || this.request.method == CONST.HTTP.METHOD.PUT) {

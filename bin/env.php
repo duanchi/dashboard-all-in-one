@@ -2,7 +2,7 @@
 //phpinfo();
 
 $json = [
-	'regex' =>  '(.*)\/(.*)\?(\d?)\/(\w*)'
+	'regex' =>  '/(.*)/(.*)\?(\d+)/(.*)'
 ];
 
 echo json_encode($json);

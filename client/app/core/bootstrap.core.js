@@ -21,7 +21,9 @@ module.exports  =   {
 
     **/
     
-    init:               function(App, Hooks) {
+    init:               function(App, Plugin) {
+        
+        this.__init_route(App);
         
         App.dispatcher   =   'test';
     
@@ -52,31 +54,59 @@ module.exports  =   {
     Function bootstrap.__init_route(App);
 
     **/
-    __init_route:       function() {
-    
-        //var mvc_obj             =   Node.url.parse(request.url).query.split('&', 2);
-
-        /* if (mvc_obj[0].search('=') == -1) {
-            this.request.GET    =   Node.querystring.parse(mvc_obj[1]);
-
-            mvc_obj             =   mvc_obj[0].split('/', 3);
-            switch (mvc_obj.length) {
-                case 3: //has m c a
-
-                case 2: //has c a
-                this.request.action     =   mvc_obj.pop();                
-
-                case 1: //has c
-                this.request.controller =   mvc_obj.pop();
-
-                default:
-                if (mvc_obj.length != 0) {
-                    this.request.module =   mvc_obj.pop();
-                }
-            }
-
-        }; */
+    __init_route:       function(App) {
         
+        //match route config with App.request.
+        
+        if (('routes' in App.conf)) {
+            
+            match_route:
+            for (key in App.conf.routes) {
+                
+                switch (App.conf.routes[key].type) {
+                    
+                    case 'regex':
+                        var match   =   App.request['routed-uri'].match(App.conf.routes[key].match);
+                        
+                        var map     =   {
+                            
+                        };
+                        
+                        console.log(JSON.stringify(match));
+                        break match_route;
+                        
+                    case 'static':
+                        
+                        
+                        break match_route;
+                        
+                }
+                
+            }
+        }
+        
+    
+        var mvc_obj                 =   App.request.route.split('/', 3);
+        var tmp_mvc                 =   {};
+        
+        tmp_mvc.module              =   (('modules' in App.conf.application) && typeof(App.conf.application.modules) == 'object' ? 'index' : App.conf.application.modules[0]);
+        tmp_mvc.controller          =   'index';
+        tmp_mvc.action              =   'index';
+        
+        switch (mvc_obj.length) {
+            case 3: //has m c a
+
+            case 2: //has c a
+            tmp_mvc.action          =   mvc_obj.pop();                
+
+            case 1: //has c
+            tmp_mvc.controller      =   mvc_obj.pop();
+
+            default:
+            if (mvc_obj.length != 0) {
+                tmp_mvc.module      =   mvc_obj.pop();
+            }
+        }
     }
     
     
