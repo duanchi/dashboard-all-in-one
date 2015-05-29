@@ -66,13 +66,21 @@ module.exports  =   {
                 switch (App.conf.routes[key].type) {
                     
                     case 'regex':
-                        var match   =   App.request['routed-uri'].match(App.conf.routes[key].match);
+                        var match           =   App.request['routed-uri'].match(App.conf.routes[key].match);
                         
-                        var map     =   {
+                        //console.log(JSON.stringify(match));
+                        
+                        if ('regex-map' in App.conf.routes[key]) {
+                            var map         =   {};
+                            console.log(JSON.stringify(App.conf.routes[key]['regex-map']));
+                            for (map_key in App.conf.routes[key]['regex-map']) {
+                                map[App.conf.routes[key]['regex-map'][map_key]] =   match[map_key.replace('$', '')];
+                            }
                             
-                        };
+                            App.request.map =   map;
+                        }
                         
-                        console.log(JSON.stringify(match));
+                        
                         break match_route;
                         
                     case 'static':

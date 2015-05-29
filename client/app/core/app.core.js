@@ -33,6 +33,7 @@ module.exports  =   function (request, location) {
         'script-file':      '',
         'query-string':     '',
         'route':            '',
+        'map':              {},
         'method':           CONST.HTTP.METHOD.GET,
         'AUTH':             {},
         'HEADER':           {},
