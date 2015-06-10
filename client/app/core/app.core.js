@@ -49,11 +49,15 @@ module.exports  =   function (request, location) {
     
     this.dispatcher         =   {};
     
+    this.view               =   {};
+    
     
     /* Public Functions */
     
     
-    
+    this.get_conf_path      =   function() {
+        return this.__conf_path;  
+    };
     
     
     /* Private Functions */

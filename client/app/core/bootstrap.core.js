@@ -25,9 +25,11 @@ module.exports  =   {
         
         this.__init_route(App);
         
-        App.dispatcher   =   'test';
+        App.dispatcher   =   {};
     
         App.conf.application['plugin-path'];
+        
+        this.__init_dispatcher(App);
         
     },
     
@@ -115,9 +117,15 @@ module.exports  =   {
                 tmp_mvc.module      =   mvc_obj.pop();
             }
         }
+    },
+    
+    
+    
+    this__init_dispatcher:  function(App) {
+        
+        App.dispatcher              =   require(App.get_conf_path() . '/core/view.core.js');
+
     }
-    
-    
     
     /* Construct Function Start */
     
