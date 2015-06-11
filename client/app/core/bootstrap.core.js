@@ -10,7 +10,7 @@ module.exports  =   {
     
     
     
-    test:               'a',
+    app:                {},
     
     
     /* Public Functions */
@@ -31,6 +31,8 @@ module.exports  =   {
         
         this.__init_dispatcher(App);
         
+        this.app        =   App;
+        
     },
     
     
@@ -40,7 +42,9 @@ module.exports  =   {
 
     **/
     run:                function() {
-        
+        var instance    =   require(this.App.location + '/modules/' + App.request.module + '/' + App.request.controller + '.module.js') {
+            
+        }
         console.log('Running!');
 
     },
@@ -117,13 +121,17 @@ module.exports  =   {
                 tmp_mvc.module      =   mvc_obj.pop();
             }
         }
+        
+        App.request.module          =   tmp_mvc.module;
+        App.request.controller      =   tmp_mvc.controller;
+        App.request.action          =   tmp_mvc.action;
     },
     
     
     
-    this__init_dispatcher:  function(App) {
+    this.__init_dispatcher: function(App) {
         
-        App.dispatcher              =   require(App.get_conf_path() . '/core/view.core.js');
+        App.dispatcher              =   new require(App.get_conf_path() . '/core/view.core.js')(App);
 
     }
     

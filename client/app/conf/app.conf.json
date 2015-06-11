@@ -5,7 +5,11 @@
         "bootstrap-file":   "bootstrap/bootstrap.js",
         "plugin-path":      "plugins",
         "library-path":     "library",
-        "modules":          ["index", "monitor", "dashboard", "login"]
+        "modules":          ["index", "monitor", "dashboard", "login"],
+        "view":             {
+            "enabled":  true,
+            "engine":   'library/view/handlebars.view.lib.js'
+        }
     },
     "routes":   [
         {

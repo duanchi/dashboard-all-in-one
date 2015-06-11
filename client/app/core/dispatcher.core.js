@@ -22,12 +22,8 @@ module.exports  =   function(App) {
         return App.view;
     };
     
-    this.init_view      =   function() {
-        
-    };
-    
-    this.set_view       =   function() {
-        
+    this.set_view       =   function(view) {
+        this.view.instance  =   view;
     };
     
     this.enable_view    =   function() {
@@ -38,6 +34,11 @@ module.exports  =   function(App) {
         App.view.enabled    =   false;
     };
     
+    this.init_view      =   function() {
+        if (App.view.enabled == true) {
+            this.set_view(new require(App.location + '/core/view.core.js')(App));
+        }
+    };
     
     this.get_application=   function() {
         return App;
