@@ -16,5 +16,10 @@
         "plugin":           true
     },
     "inject-js-end":    "preload.js",
-    "user-agent":       "Dashboard-All-In-One %ver"
+    "user-agent":       "Dashboard-All-In-One %ver",
+    "dependencies": {
+        "bl": "^0.9.3",
+        "inherits": "^2.0.1",
+        "readable-stream": "^1.0.27-1"
+    }
 }
