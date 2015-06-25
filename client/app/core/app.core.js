@@ -12,7 +12,7 @@ module.exports  =   function (request, location) {
     //app location
     this.location           =   (location == '' ? '.' : location) + '/app';
     
-    this.__conf_path          =   this.location + '/conf';
+    this.__conf_path        =   this.location + '/conf';
 
     //app config
     this.conf               =   require(this.__conf_path + '/app.conf.json');

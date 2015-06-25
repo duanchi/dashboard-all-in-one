@@ -31,7 +31,7 @@ module.exports  =   {
         
         this.__init_dispatcher(App);
         
-        this.app        =   App;
+        this.App        =   App;
         
     },
     
@@ -42,9 +42,9 @@ module.exports  =   {
 
     **/
     run:                function() {
-        var instance    =   require(this.App.location + '/modules/' + App.request.module + '/' + App.request.controller + '.module.js') {
-            
-        }
+        //var instance    =   require(this.App.location + '/modules/' + this.App.request.module + '/' + this.App.request.controller + '.controller.js');
+        var instance    =   require(this.App.location + '/core/controller.core.js')(this.App);
+        instance.run_action(this.App.request.action);
         console.log('Running!');
 
     },
@@ -129,9 +129,9 @@ module.exports  =   {
     
     
     
-    this.__init_dispatcher: function(App) {
+    __init_dispatcher: function(App)    {
         
-        App.dispatcher              =   new require(App.get_conf_path() . '/core/view.core.js')(App);
+        App.dispatcher              =   new require(App.location + '/core/dispatcher.core.js')(App);
 
     }
     

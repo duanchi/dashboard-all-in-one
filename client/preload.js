@@ -13,9 +13,9 @@ var request         =   {
 
 var app_location    =   path.dirname(window.location.href.split('?', 1)[0].replace(/file:\/\//, ''));
 
-//var App             =   new require(app_location + '/app/app.js')(request, app_location, this);
+var App             =   new require(app_location + '/app/app.js')(request, app_location, this);
 
-//App.bootstrap.run();
+App.bootstrap.run();
 
 //console.log(App.dispatcher);
 

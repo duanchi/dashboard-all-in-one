@@ -8,7 +8,7 @@
         "modules":          ["index", "monitor", "dashboard", "login"],
         "view":             {
             "enabled":  true,
-            "engine":   'library/view/handlebars.view.lib.js'
+            "engine":   "library/view/handlebars.view.lib.js"
         }
     },
     "routes":   [
