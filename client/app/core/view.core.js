@@ -5,6 +5,8 @@ module.exports  =   function(App) {
     this.__template_file=   '';
     this.__output_buffer=   '';
     
+    this.enable         =   true;
+    
     this.assign         =   function(key, value) {
         this.__data[key]=   value;
     };
@@ -18,4 +20,5 @@ module.exports  =   function(App) {
         
     };
     
+    return this;
 }

@@ -42,7 +42,6 @@ module.exports  =   {
 
     **/
     run:                function() {
-        //var instance    =   require(this.App.location + '/modules/' + this.App.request.module + '/' + this.App.request.controller + '.controller.js');
         var instance    =   require(this.App.location + '/core/controller.core.js')(this.App);
         instance.run_action(this.App.request.action);
         console.log('Running!');
@@ -140,5 +139,4 @@ module.exports  =   {
     
     
     /* Construct Function End */
-    
 }
