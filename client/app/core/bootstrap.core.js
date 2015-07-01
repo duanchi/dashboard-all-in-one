@@ -10,7 +10,7 @@ module.exports  =   {
     
     
     
-    app:                {},
+    App:                {},
     
     
     /* Public Functions */
@@ -43,9 +43,15 @@ module.exports  =   {
     **/
     run:                function() {
         var instance    =   require(this.App.location + '/core/controller.core.js')(this.App);
-        instance.run_action(this.App.request.action);
+        var show_view   =   instance.run_action(this.App.request.action);
+        
+        this.__init_view(show_view);
+        
+        if (show_view == true) {
+            this.App.dispatcher.get_view().render();
+        }
+        
         console.log('Running!');
-
     },
     
     
@@ -128,10 +134,28 @@ module.exports  =   {
     
     
     
-    __init_dispatcher: function(App)    {
+    __init_dispatcher: function(App) {
         
         App.dispatcher              =   new require(App.location + '/core/dispatcher.core.js')(App);
+        
 
+    },
+    
+    
+    
+    __init_view:        function(show_view) {
+        
+        if (show_view == true) {
+            
+            this.App.dispatcher.enable_view();
+            App.dispatcher.init_view();
+            
+        } else {
+            
+            this.App.dispatcher.disable_view();
+            
+        }
+        
     }
     
     /* Construct Function Start */

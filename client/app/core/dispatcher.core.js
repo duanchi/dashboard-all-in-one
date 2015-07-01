@@ -1,52 +1,54 @@
 module.exports  =   function(App) {
     
+    this.App            =   {},
+    
     
     this.get_request    =   function() {
-        return App.request;
+        return this.App.request;
     };
     
     this.get_config     =   function() {
-        return App.conf;  
+        return this.App.conf;  
     };
     
     this.get_route      =   function() {
         return {
-            'module':       App.request.module,
-            'controller':   App.request.cotroller,
-            'action':       App.request.action
+            'module':       this.App.request.module,
+            'controller':   this.App.request.cotroller,
+            'action':       this.App.request.action
             
         }
     };
     
     this.get_view       =   function() {
-        return App.view;
+        return this.App.view;
     };
     
     this.set_view       =   function(view) {
-        this.view.instance  =   view;
+        this.App.view   =   view;
     };
     
     this.enable_view    =   function() {
-        App.view.enabled    =   true;
+        this.App.view.enabled   =   true;
     };
     
     this.disable_view   =   function() {
-        App.view.enabled    =   false;
+        this.App.view.enabled   =   false;
     };
     
     this.init_view      =   function() {
-        if (App.view.enabled == true) {
-            this.set_view(new require(App.location + '/core/view.core.js')(App));
-        }
+        this.set_view(new require(this.App.location + '/core/view.core.js')(App));
     };
     
     this.get_application=   function() {
-        return App;
+        return this.App;
     };
         
     this.get_instance   =   function() {
         return this;
     };
+    
+    this.App            =   App;
     
     return this;
 }
