@@ -16,8 +16,24 @@ module.exports  =   function(App) {
     };
     
     this.display        =   function() {
-        var template    =   this.__instance.compile(this.__template_file);
+        
+        var source      =   Node.fs.readFileSync(this.__template_file, "utf-8");
+        var template    =   this.__instance.compile(source);
         this.__output_buffer    =   template(this.__data);
+        
+        for (n in root) {
+            console.log(n);
+        }
+        
+        switch (this.App.conf.application.view['display-type']){
+            
+            case 'dom':
+                window.document.write(this.__output_buffer);
+                break;
+                
+            default:
+                Node.process.stdout.write(this.__output_buffer);
+        }
     };
     
     this.render         =   function() {
@@ -33,6 +49,9 @@ module.exports  =   function(App) {
     this.__init         =   function() {
         this.set_template_file(this.App.location + '/' + this.App.conf.application.view.path + '/' + this.App.request.module + '/' + this.App.request.controller + '/' + this.App.request.action + this.App.conf.application.view.suffix)
     };
+    
+    
+    this.__init();
     
     return this;
 }

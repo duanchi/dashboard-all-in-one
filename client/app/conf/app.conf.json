@@ -1,6 +1,6 @@
 {
     "appkey":   "test",
-    "node-module":  ["net", "url", "querystring", "path"],
+    "node-module":  ["net", "url", "querystring", "path", "fs", "process"],
     "application":  {
         "bootstrap-file":   "bootstrap/bootstrap.js",
         "plugin-path":      "plugins",
@@ -10,7 +10,8 @@
             "enabled":  true,
             "engine":   "library/view/handlebars.view.lib.js",
             "path":     "views",
-            "suffix":   ".view.html"
+            "suffix":   ".view.html",
+            "display-type": "dom"
         }
     },
     "routes":   [
