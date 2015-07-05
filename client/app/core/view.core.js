@@ -43,7 +43,24 @@ module.exports  =   function(App) {
     };
     
     this.__init         =   function() {
-        this.set_template_file(this.App.location + '/' + this.App.conf.application.view.path + '/' + this.App.request.module + '/' + this.App.request.controller + '/' + this.App.request.action + this.App.conf.application.view.suffix)
+        
+        this.set_template_file(this.App.location + '/' + this.App.conf.application.view.path + '/' + this.App.request.module + '/' + this.App.request.controller + '/' + this.App.request.action + this.App.conf.application.view.suffix);
+        
+        this.__set_inital_define();
+    };
+    
+    
+    this.__set_inital_define    =   function() {
+        
+        this.assign('__APP', {
+            'request':  this.App.request,
+            'root':     this.App.root_path
+        });
+        
+        //this.assign('__resource_path', 'http://dashboard.devel/assets');
+        this.assign('__resource_path', this.App.root_path + '/assets');
+        
+        
     };
     
     

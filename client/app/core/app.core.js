@@ -10,7 +10,9 @@ module.exports  =   function (request, location) {
     /* Properties */
 
     //app location
-    this.location           =   (location == '' ? '.' : location) + '/app';
+    this.root_path          =   (location == '' ? '.' : location);
+    
+    this.location           =   this.root_path + '/app';
     
     this.__conf_path        =   this.location + '/conf';
 
