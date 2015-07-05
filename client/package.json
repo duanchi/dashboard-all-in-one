@@ -1,5 +1,5 @@
 {
-    "main":             "index.html?monitor/index&1289001/get", // 启动页面
+    "main":             "index.html", // 启动页面
     "name":             "Dashboard-All-In-One",
     "version":          "0.1.0",
     "nodejs":           true,

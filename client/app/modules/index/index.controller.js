@@ -1,7 +1,7 @@
 module.exports  =   {
     
     __init:     function() {
-        console.log('run monitor controller!!!');
+        
     },
     
         

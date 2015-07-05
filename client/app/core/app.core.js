@@ -85,6 +85,7 @@ module.exports  =   function (request, location) {
     this.__init_request     =   function(request) {
         
         var url_object              =   Node.url.parse(request.url);
+        if (url_object.query == null) url_object.query    =   '&';
         var url_scheme              =   url_object.protocol.trim(':').toUpperCase();
         var http_method             =   request.method.toUpperCase();
         var query_obj               =   url_object.query.split('&', 2);

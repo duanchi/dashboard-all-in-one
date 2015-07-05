@@ -21,10 +21,6 @@ module.exports  =   function(App) {
         var template    =   this.__instance.compile(source);
         this.__output_buffer    =   template(this.__data);
         
-        for (n in root) {
-            console.log(n);
-        }
-        
         switch (this.App.conf.application.view['display-type']){
             
             case 'dom':

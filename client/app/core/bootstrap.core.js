@@ -79,7 +79,7 @@ module.exports  =   {
                     case 'regex':
                         var match           =   App.request['routed-uri'].match(App.conf.routes[key].match);
                         
-                        //console.log(JSON.stringify(match));
+                        if (match == null) break;
                         
                         if ('regex-map' in App.conf.routes[key]) {
                             var map         =   {};
@@ -106,11 +106,11 @@ module.exports  =   {
         
     
         var mvc_obj                 =   App.request.route.split('/', 3);
-        var tmp_mvc                 =   {};
-        
-        tmp_mvc.module              =   (('modules' in App.conf.application) && typeof(App.conf.application.modules) == 'object' ? 'index' : App.conf.application.modules[0]);
-        tmp_mvc.controller          =   'index';
-        tmp_mvc.action              =   'index';
+        var tmp_mvc                 =   {
+            module:                 '',
+            controller:             '',
+            action:                 ''
+        };
         
         switch (mvc_obj.length) {
             case 3: //has m c a
@@ -127,9 +127,9 @@ module.exports  =   {
             }
         }
         
-        App.request.module          =   tmp_mvc.module;
-        App.request.controller      =   tmp_mvc.controller;
-        App.request.action          =   tmp_mvc.action;
+        App.request.module          =   (tmp_mvc.module == '' ? (('modules' in App.conf.application) && typeof(App.conf.application.modules) == 'object' ? 'index' : App.conf.application.modules[0]) : tmp_mvc.module);
+        App.request.controller      =   (tmp_mvc.controller == '' ? 'index' : tmp_mvc.controller);
+        App.request.action          =   (tmp_mvc.action == '' ? 'index' : tmp_mvc.action);
     },
     
     
