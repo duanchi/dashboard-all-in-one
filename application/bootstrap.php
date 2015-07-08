@@ -10,7 +10,10 @@
 class Bootstrap extends Yaf\Bootstrap_Abstract{
 
     public function _initConfig() {
-		$config = Yaf\Application::app()->getConfig();
+
+        \CONF::set_environment(\Yaf\Application::app()->environ(), APPLICATION_KEY);
+        $config = \CONF::get('application');
+		//$config = Yaf\Application::app()->getConfig();
 		Yaf\Registry::set('config', $config);
 	}
 	
@@ -51,9 +54,22 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 	 * @since	2012-03-26
 	 * @param	unknown_type $type
 	 */
-	private function _import ($file_path) {
-		$file_path = Yaf\Registry::get('config')->get('application')->library.DIRECTORY_SEPARATOR.$file_path;
-		$file_list = glob($file_path.DIRECTORY_SEPARATOR.'*.php');
-		foreach($file_list as $v) Yaf\Loader::import($v);
-	}
+    private function _import ($file_path) {
+
+        $file_list      =   [];
+
+        $file_path      =   \Yaf\Loader::getInstance()->getLibraryPath(TRUE) . DIRECTORY_SEPARATOR . $file_path;
+
+        if (file_exists($file_path)) {
+            $file_list  =   glob($file_path . DIRECTORY_SEPARATOR . '*.php');
+        }
+
+        $file_path      =   \Yaf\Loader::getInstance()->getLibraryPath(FALSE) . DIRECTORY_SEPARATOR . $file_path;
+
+        if (file_exists($file_path)) {
+            $file_list  =   array_merge($file_list, glob($file_path . DIRECTORY_SEPARATOR . '*.php'));
+        }
+
+        foreach($file_list as $v) \Yaf\Loader::import($v);
+    }
 }

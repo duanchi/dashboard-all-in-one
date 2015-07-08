@@ -26,14 +26,14 @@ class InitPlugin extends Yaf\Plugin_Abstract {
 					);*/
 
 		\CORE\INSTANCE::set(new \View(
-			\Yaf\Registry::get('config')->application->view->path.
+			\CONF::get('application', 'view.path').
 			DIRECTORY_SEPARATOR.
 			$request->controller.
 			DIRECTORY_SEPARATOR.
 			$request->action.
-			\Yaf\Registry::get('config')->application->view->suffix,
+			\CONF::get('application', 'view.suffix'),
 
-			\Yaf\Registry::get('config')->get('application')->get('view')
+			\CONF::get('application', 'view')
 		));
 	}
 	
@@ -55,5 +55,3 @@ class InitPlugin extends Yaf\Plugin_Abstract {
         call_user_func([$_instance, '__initialize'], $_argument1, ...$_arguments);
     }
 }
-
-?>
