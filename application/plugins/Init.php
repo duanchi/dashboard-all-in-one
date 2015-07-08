@@ -33,7 +33,7 @@ class InitPlugin extends Yaf\Plugin_Abstract {
 			$request->action.
 			\Yaf\Registry::get('config')->application->view->suffix,
 
-			NULL
+			\Yaf\Registry::get('config')->get('application')->get('view')
 		));
 	}
 	

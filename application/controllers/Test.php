@@ -33,7 +33,7 @@ class TestController extends Yaf\Controller_Abstract {
 	}
 
 	public function envAction() {
-		t(microtime(true));
+		//new \View(\Registry::get('config')->get('application')->get('view'));
 		return FALSE;
 	}
 
