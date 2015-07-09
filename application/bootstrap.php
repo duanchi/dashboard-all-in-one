@@ -13,6 +13,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 
         \CONF::set_environment(\Yaf\Application::app()->environ(), APPLICATION_KEY);
         $config = \CONF::get('application');
+        var_dump($config);
 		//$config = Yaf\Application::app()->getConfig();
 		Yaf\Registry::set('config', $config);
 	}
