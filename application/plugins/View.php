@@ -67,5 +67,3 @@ class ViewPlugin extends Yaf\Plugin_Abstract {
 		
 	}
 }
-
-?>
