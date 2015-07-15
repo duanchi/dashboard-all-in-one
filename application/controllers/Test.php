@@ -37,6 +37,26 @@ class TestController extends Yaf\Controller_Abstract {
 		return FALSE;
 	}
 
+	public function restclientAction() {
+
+		$__client_handle	=	new Net\Restful\Client();
+
+		$__request			=	new Net\Restful\Request();
+
+		$__client_handle->execute($__request, function(){
+			return 'hello world';
+		});
+
+		//\Callback\Restful\Request::complete();
+		$__client_handle->execute($__request, '\Callback\Restful\Request::complete');
+
+		return FALSE;
+	}
+
+	private function __for_rest() {
+		return true;
+	}
+
 	public function rpcAction() {
 		\CORE\Rpc::add_server(new TestServer(), NULL, 'Yar');
 		\CORE\Rpc::handle();

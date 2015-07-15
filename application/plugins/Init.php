@@ -25,7 +25,7 @@ class InitPlugin extends Yaf\Plugin_Abstract {
 						\Yaf\Registry::get('config')->application->view->engine
 					);*/
 
-		\CORE\INSTANCE::set(new \View(
+		/*\CORE\INSTANCE::set(new \View(
 			\CONF::get('application', 'view.path').
 			DIRECTORY_SEPARATOR.
 			$request->controller.
@@ -34,7 +34,7 @@ class InitPlugin extends Yaf\Plugin_Abstract {
 			\CONF::get('application', 'view.suffix'),
 
 			\CONF::get('application', 'view')
-		));
+		));*/
 	}
 	
 	public function preDispatch(Yaf\Request_Abstract $request, Yaf\Response_Abstract $response) {

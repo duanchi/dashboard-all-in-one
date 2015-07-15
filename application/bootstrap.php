@@ -16,7 +16,17 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 		//$config = Yaf\Application::app()->getConfig();
 		Yaf\Registry::set('config', $config);
 	}
-	
+
+    public function _initAutoload() {
+
+        \Yaf\Loader::getInstance()->registerLocalNamespace(explode(',', \CONF::get('application.local_namespace')));
+
+        spl_autoload_register(function ($class_name) {
+            \Yaf\Loader::import(\Yaf\Loader::getInstance()->getLibraryPath(FALSE) . '/' . str_replace('\\', '/', $class_name) . '.php');
+        });
+
+    }
+
 	/*public function _initRoute(Yaf\Dispatcher $dispatcher) {
 		$dispatcher->getRouter()->addConfig(Yaf\Registry::get('config')->routes);
 	}*/
@@ -32,7 +42,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
         //$dispatcher->registerPlugin(new ConstPlugin());
         $dispatcher->registerPlugin(new InitPlugin());
         $dispatcher->registerPlugin(new SecurityPlugin());
-        $dispatcher->registerPlugin(new ViewPlugin());
+        //$dispatcher->registerPlugin(new ViewPlugin());
         $dispatcher->registerPlugin(new DevelPlugin());
     }
 
