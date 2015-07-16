@@ -44,17 +44,13 @@ class TestController extends Yaf\Controller_Abstract {
 		$__request			=	new Net\Restful\Request();
 
 		$__client_handle->execute($__request, function(){
-			return 'hello world';
+			echo 'hello world';
 		});
 
 		//\Callback\Restful\Request::complete();
-		$__client_handle->execute($__request, '\Callback\Restful\Request::complete');
+		//$__client_handle->execute($__request, '\Callback\Restful\Request::complete');
 
 		return FALSE;
-	}
-
-	private function __for_rest() {
-		return true;
 	}
 
 	public function rpcAction() {
