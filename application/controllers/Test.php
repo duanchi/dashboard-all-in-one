@@ -43,9 +43,12 @@ class TestController extends Yaf\Controller_Abstract {
 
 		$__request			=	new Net\Restful\Request();
 
-		$__client_handle->execute($__request, function(){
-			echo 'hello world';
-		});
+		$__request
+			->set('Access-token', '8LO2rRDSmwIdbafeicpqAgJC47LXBJ2x5CaOJNpqw32ba6rxwnDNWccQep8HUycW')
+			->set('Client-id', '51b08861-84cd-3ca1-a507-5d02907d1d80');
+
+		echo $__request;
+		//$__client_handle->add_request($__request);
 
 		//\Callback\Restful\Request::complete();
 		//$__client_handle->execute($__request, '\Callback\Restful\Request::complete');
