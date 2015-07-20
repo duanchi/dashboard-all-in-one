@@ -22,7 +22,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
         \Yaf\Loader::getInstance()->registerLocalNamespace(explode(',', \CONF::get('application.local_namespace')));
 
         spl_autoload_register(function ($class_name) {
-            \Yaf\Loader::import(\Yaf\Loader::getInstance()->getLibraryPath(FALSE) . '/' . str_replace('\\', '/', $class_name) . '.php');
+            \Yaf\Loader::import(\Yaf\Loader::getInstance()->getLibraryPath(FALSE) . DIRECTORY_SEPARATOR . str_replace('\\', '/', $class_name) . '.php');
         });
 
     }

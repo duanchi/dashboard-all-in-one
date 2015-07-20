@@ -41,11 +41,12 @@ class TestController extends Yaf\Controller_Abstract {
 
 		//$__client_handle	=	new Net\Restful\Client();
 
-		$__request			=	new Net\Http\Request(EX_NET_HTTP_METHOD_GET, 'http://localhost/?haha=foo', ['Access-token' => '8LO2rRDSmwIdbafeicpqAgJC47LXBJ2x5CaOJNpqw32ba6rxwnDNWccQep8HUycW']);
+		//$__request			=	new Net\Http\Client\Request(EX_NET_HTTP_METHOD_GET, 'http://localhost/?haha=foo', ['Access-token' => '8LO2rRDSmwIdbafeicpqAgJC47LXBJ2x5CaOJNpqw32ba6rxwnDNWccQep8HUycW']);
 		//$__request
 		//	->set('Access-token', '8LO2rRDSmwIdbafeicpqAgJC47LXBJ2x5CaOJNpqw32ba6rxwnDNWccQep8HUycW');
 		//	->set('Client-id', '51b08861-84cd-3ca1-a507-5d02907d1d80');
 
+		$__request  =   new \Net\Restful\Client\Request();
 		echo $__request;
 		//$__client_handle->add_request($__request);
 
