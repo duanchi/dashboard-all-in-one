@@ -62,8 +62,9 @@ class TestController extends Yaf\Controller_Abstract {
 	}
 
 	public function restservAction() {
-		t(getallheaders());
-		//t($_SERVER);
+		$__handle   =   new \Api\TestServer();
+		$__server   =   new \Net\Restful\Server($__handle);
+		$__server->handle();
 		return FALSE;
 	}
 
