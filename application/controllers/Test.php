@@ -43,7 +43,7 @@ class TestController extends Yaf\Controller_Abstract {
 
 		$__request			=	new Net\Restful\Client\Request(
 			EX_NET_HTTP_METHOD_GET,
-			'http://dashboard.devel/test/restserv',
+			'http://dashboard.devel/env.php',
 			'18600366232',
 			'{{RESOURCE_PLACEHOLDER}}&haha=foo',
 			['access_token'=>'8LO2rRDSmwIdbafeicpqAgJC47LXBJ2x5CaOJNpqw32ba6rxwnDNWccQep8HUycW']
@@ -62,9 +62,12 @@ class TestController extends Yaf\Controller_Abstract {
 	}
 
 	public function restservAction() {
+		$_config = \CONF::get('restful', NULL, NULL, PUBLIC_LIBRARY_KEY);
+		t($_config);
 		$__handle   =   new \Api\TestServer();
-		$__server   =   new \Net\Restful\Server($__handle);
+		$__server   =   new \Net\Restful\Server($__handle, $_config);
 		$__server->handle();
+
 		return FALSE;
 	}
 
