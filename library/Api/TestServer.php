@@ -9,7 +9,7 @@
 namespace Api;
 
 
-class TestServer extends \Net\Restful\Server\Handler
+class TestServer extends \Net\Restful\Server\Handle
 {
 	public function GET($_service, $_resource, $_parameters, $_properties) {
 		return 'hello world';
