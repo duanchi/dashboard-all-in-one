@@ -41,7 +41,7 @@ class TestController extends Yaf\Controller_Abstract {
 
 		$__client_handle	=	new Net\Restful\Client();
 
-		$__conf             =   \CONF::get('restful.request');
+		$__conf             =   \CONF::get('restful');
 		$__request			=	new Net\Restful\Client\Request(
 			EX_NET_HTTP_METHOD_GET,
 			'http://dashboard.devel/env.php',
