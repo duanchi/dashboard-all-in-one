@@ -17,7 +17,7 @@ class TestServer extends \Net\Restful\Server\Handle
 			->set('status', 200)
 			->set('headers', ['Dump: test'])
 			->set('properties', ['service'=>'test.test'])
-			->set('content_type', EX_MIMETYPE_JSON)
+			->set('content_type', EX_MIMETYPE_MSGPACK)
 			->set('data', $_SERVER)
 		;
 
