@@ -13,7 +13,6 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 
         \CONF::set_environment(\Yaf\Application::app()->environ(), APPLICATION_KEY);
         $config = \CONF::get('application');
-		//$config = Yaf\Application::app()->getConfig();
 		Yaf\Registry::set('config', $config);
 	}
 
@@ -33,7 +32,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 
     public function _initFunction(Yaf\Dispatcher $dispatcher) {
         //初始化自定义全局函数
-        $this->_import('Function');
+        \Load::import('Function');
     }
 
     public function _initPlugin(Yaf\Dispatcher $dispatcher) {

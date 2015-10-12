@@ -65,12 +65,27 @@ class TestController extends Yaf\Controller_Abstract {
 		return FALSE;
 	}
 
-	public function restservAction() {
+	public function restservAction()
+	{
 		$_config = \CONF::get('restful');
-		$__handle   =   new \Api\TestServer();
-		$__server   =   new \Net\Restful\Server($__handle, $_config);
+		$__handle = new \Api\TestServer();
+		$__server = new \Net\Restful\Server($__handle, $_config);
 		$__server->handle();
 
+		return FALSE;
+	}
+
+	public function curlAction() {
+
+
+		$__request          =   new Net\Http\Client\Request(EX_NET_HTTP_METHOD_GET, 'http://47.88.136.68');
+
+		$__client_handle	=	new Net\Http\Client();
+		$__client           =   $__client_handle->add_request($__request);
+		\Devel\Timespent::record('BEFORE');
+		$__result           =   $__client_handle->execute();
+		\Devel\Timespent::record('RUN');
+		t($__result);
 		return FALSE;
 	}
 
