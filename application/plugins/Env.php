@@ -13,7 +13,8 @@ class EnvPlugin extends Yaf\Plugin_Abstract {
 
 	function __construct()
     {
-        define('IS_PHP56', (PHP_VERSION > '5.6'));
+        define('IS_PHP7', (PHP_VERSION >= '7'));
+        define('IS_PHP56', (PHP_VERSION >= '5.6') && (PHP_VERSION < '7'));
         define('IS_WINDOWS', strpos(strtoupper(PHP_OS), 'WIN') !== FALSE);
     }
 } 

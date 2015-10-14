@@ -12,8 +12,9 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
     public function _initConfig() {
 
         \CONF::set_environment(\Yaf\Application::app()->environ(), APPLICATION_KEY);
-        $config = \CONF::get('application');
-		Yaf\Registry::set('config', $config);
+        $__config = \CONF::get('application');
+		Yaf\Registry::set('config', $__config);
+
 	}
 
     public function _initAutoload() {
@@ -27,18 +28,17 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
     }
 
 	/*public function _initRoute(Yaf\Dispatcher $dispatcher) {
-		$dispatcher->getRouter()->addConfig(Yaf\Registry::get('config')->routes);
+		$dispatcher->getRouter()->addConfig(\CONF::get('application.routes'));
 	}*/
 
     public function _initFunction(Yaf\Dispatcher $dispatcher) {
         //初始化自定义全局函数
-        \Load::import('Function');
+        \Load::import('Function', \CONF::get('application.library'));
     }
 
     public function _initPlugin(Yaf\Dispatcher $dispatcher) {
         //注册插件
         $dispatcher->registerPlugin(new EnvPlugin());
-        //$dispatcher->registerPlugin(new ConstPlugin());
         $dispatcher->registerPlugin(new InitPlugin());
         $dispatcher->registerPlugin(new SecurityPlugin());
         //$dispatcher->registerPlugin(new ViewPlugin());
@@ -54,31 +54,5 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
         //$dispatcher->registerPlugin(new \Hook\ExtraDataPlugin());
         //$dispatcher->registerPlugin(new \Hook\ResponsePlugin());
         //$dispatcher->registerPlugin(new \Hook\PostEventPlugin());
-    }
-	
-	/**
-	 * @name	import
-	 * 加载自定义包
-	 * @version	1.0.0
-	 * @since	2012-03-26
-	 * @param	unknown_type $type
-	 */
-    private function _import ($file_path) {
-
-        $file_list      =   [];
-
-        $file_path      =   \Yaf\Loader::getInstance()->getLibraryPath(TRUE) . DIRECTORY_SEPARATOR . $file_path;
-
-        if (file_exists($file_path)) {
-            $file_list  =   glob($file_path . DIRECTORY_SEPARATOR . '*.php');
-        }
-
-        $file_path      =   \Yaf\Loader::getInstance()->getLibraryPath(FALSE) . DIRECTORY_SEPARATOR . $file_path;
-
-        if (file_exists($file_path)) {
-            $file_list  =   array_merge($file_list, glob($file_path . DIRECTORY_SEPARATOR . '*.php'));
-        }
-
-        foreach($file_list as $v) \Yaf\Loader::import($v);
     }
 }

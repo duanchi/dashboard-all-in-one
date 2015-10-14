@@ -123,7 +123,13 @@ class TestController extends Yaf\Controller_Abstract {
 	}
 
 	public function etcAction() {
-		t(\DATA\Json::get('client'));
+		\Data\JSON::initialize(\CONF::get('data'));
+		t(\Data\JSON::get('list'));
+
+		$_arr = [1,2,3,4,5,6];
+		unset($_arr[3]);
+
+		t($_arr);
 		return FALSE;
 	}
 
