@@ -12,7 +12,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
     public function _initConfig() {
 
         \CONF::set_environment(\Yaf\Application::app()->environ(), APPLICATION_KEY);
-        $__config = \CONF::get('application');
+        $__config               = \CONF::get('application');
 		Yaf\Registry::set('config', $__config);
 
 	}
@@ -47,7 +47,8 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 
     public function _initHooks(Yaf\Dispatcher $dispatcher) {
         //注册Hooks
-        //$dispatcher->registerPlugin(new \Hook\RequestPlugin());
+        //\HooksPlugin::register($dispatcher, \CONF::get('hooks'));
+        $dispatcher->registerPlugin(new \Hooks\Api\RequestPlugin());
         //$dispatcher->registerPlugin(new \Hook\AuthenticatePlugin());
         //$dispatcher->registerPlugin(new \Hook\ParseConfigPlugin());
         //$dispatcher->registerPlugin(new \Hook\FetchDataPlugin());

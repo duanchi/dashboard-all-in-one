@@ -124,10 +124,29 @@ class TestController extends Yaf\Controller_Abstract {
 
 	public function etcAction() {
 		\Data\JSON::initialize(\CONF::get('data'));
-		t(\Data\JSON::get('list'));
+		$_data = \Data\JSON::get('list');
+		\Devel\Timespent::record('PRE-DO');
+		for ($i = 0; $i<10000; $i++) {
+			$_result = \TREE::get(
+					0,
+					$_data,
+					[
+							TRAVERSAL_ALGORITHM    =>   TRAVERSAL_DFS
+					]
+			);
+		}
 
-		$_arr = [1,2,3,4,5,6];
-		unset($_arr[3]);
+		\Devel\Timespent::record('AFTER-DO');
+
+		t(\Devel\Timespent::spent());
+		t($_result);
+
+
+		$_arr = [1,2,3,4];
+
+		$_tarr = &$_arr[3];
+
+		$_tarr = 7;
 
 		t($_arr);
 		return FALSE;

@@ -8,12 +8,8 @@
  */
 
 const TRAVERSAL_ALGORITHM               =   1;
-const BREADTH_FIRST                     =   10;
-const DEPTH_FIRST                       =   11;
-
-const RETURN_TYPE                       =   2;
-const NODE                              =   20;
-const TREE                              =   21;
+const TRAVERSAL_BFS                     =   10;
+const TRAVERSAL_DFS                     =   11;
 
 class TREE
 {
@@ -31,15 +27,17 @@ class TREE
 		}
 
 		switch ($_options[TRAVERSAL_ALGORITHM]) {
-			case DEPTH_FIRST:
-				$_return_value['nodes'] =   self::__traversal_depth_first($_id, $_data);
+			case TRAVERSAL_DFS:
+				$_return_value['nodes'] =   self::__traversal_dfs($_id, $_data);
 				break;
 
-			case BREADTH_FIRST:
+			case TRAVERSAL_BFS:
 			default:
-				$_return_value['nodes'] =   self::__traversal_breadth_first($_id, $_data);
+			$_return_value['nodes']     =   self::__traversal_bfs($_id, $_data);
 				break;
 		}
+
+		return $_return_value;
 	}
 
 	static private function __fetch($_id, $_data) {
@@ -53,54 +51,44 @@ class TREE
 		return NULL;
 	}
 
-	static private function __traversal_bfs($_queue = [0], &$_data, &$_return_value) {
+	static private function __traversal_bfs($_parent_id = 0, $_data) {
+
+		$__return_value                 =   [];
 
 		if (!empty($_data)) {
-
-			$_i                         =   0;
-
-			while (isset($_queue[$_i])) {
-				$_node                  =   0;
-
-				do {
-					if ($_data[$_node]['pid'] === $_queue[$_i++]) {
-
-						if ([0] === $_queue) {
-							$_return_value[]['data'] =   $_current_data  =   $_data[$_node];
-						}
-						else {
-							$_return_value[$_i]['nodes'][]['data'] =   $_current_data  =   $_data[$_node];
-						}
-
-						$_queue[]       =   $_current_data['id'];
-						unset($_data[$_node]);
-					}
-				} while(isset($_data[++$_node]));
-
+			while (list($__key, $__node) = each($_data)) {
+				if ($_parent_id === $__node['pid']) {
+					unset($_data[$__key]);
+					$__return_value[]    = [
+						'data'  =>  $__node
+					];
+				}
 			}
-			self::__traversal_bfs($_queue, $_data, $_return_value);
+
+			while (list($__key, $__node) = each($__return_value)) {
+				$__return_value[$__key]['nodes'] =   self::__traversal_bfs($__node['data']['id'], $_data);
+			}
 		}
 
-		return ;
+		return $__return_value;
 	}
 
-	static private function __traversal_dfs($_parent_id, &$_data) {
+	static private function __traversal_dfs($_parent_id = 0, $_data) {
 
-		$_return_value                  =   [];
+		$__return_value                 =   [];
 
 		if (!empty($_data)) {
-			$_node                      =   0;
-
-			do {
-				if ($_data[$_node]['pid'] === $_parent_id) {
-					$_return_value[]['data']=   $_current_data  =   $_data[$_node];
-					unset($_data[$_node]);
-					$_sub_node              =   self::__traversal_dfs($_current_data['id'], $_data);
-					if (!empty($_sub_node)) $_return_value[]['nodes']   =   $_sub_node;
+			while (list($__key, $__node) = each($_data)) {
+				if ($_parent_id === $__node['pid']) {
+					unset($_data[$__key]);
+					$__return_value[]   = [
+						'data'  =>  $__node,
+					    'nodes' =>  self::__traversal_dfs($__node['id'], $_data)
+					];
 				}
-			} while(isset($_data[++$_node]));
+			}
 		}
 
-		return $_return_value;
+		return $__return_value;
 	}
 }
